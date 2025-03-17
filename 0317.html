@@ -1,0 +1,113 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+<title>0317</title>
+<style>
+    div {
+        width:200px;
+        height:100px;
+        margin-bottom: 10px;
+        border:1px black solid ;/*框線 粗細 顏色 型態*/
+    }
+    #d1 {
+        border-width: 10px 20px 30px 40px;
+    }
+    #d2 {
+        border-width: 10px ;
+        border-style: solid dashed dotted double;/* 實線 虛線 點 雙線*/實線 虛線 點 雙線*/
+    }
+   
+    #d3 {
+        border: 20px solid transparent;
+        border-color:red yellow transparent blue;
+
+    }
+    #d4 {
+        width:0px;
+        height:0px;
+        border: 20px solid transparent;
+        border-color:red yellow green blue;
+        border-width: 10px 20px 30px 40px;
+
+    }
+    .radius{
+        display:inline-block;
+    }
+    #d5 {
+      border-radius: 10px 20px 30px 40px;
+    }
+    #d6 {
+      border-radius: 50%;
+    }
+    #d7 {
+      border-radius: 50px;
+    }
+    #d8 {
+      border-radius: 100% 100% 0 0;
+    }
+    #d9 {
+      border-radius: 100px 100px 0 0;
+    }
+    #d10 {
+      border-radius: 50px 50px 0 0;
+    }
+    #d11 {
+        width:0px;
+        height:0px;
+        border-width: 100px 100px 0px 100px;
+        border-radius: 100px 100px 0 0;
+        border-color:red yellow green blue;
+    }
+    #canvas{
+        width:600px;
+        height:600px;
+        border:1px solid black;
+        position:relative
+    }
+    #item1 {
+        background-color: blue;
+        position:absolute;
+        top:100px;
+        left:100px;
+        z-index: 30;
+        
+    }
+    #item2 {
+        background-color: rgb(201, 222, 11);
+        position:absolute;
+        top:150px;
+        left:180px;
+        z-index: 10;
+        
+    }
+    #item3 {
+        background-color: rgb(230, 29, 76);
+        position:absolute;
+        top:200px;
+        left:200px;
+        z-index: 30;
+        transform: rotate(30deg) translate(100px 0px) scale(0.5) skew(30deg 0deg) ;
+        /*轉角度 位移 規模(倍率) 扭曲 */
+    }
+</style>
+</head>
+<body>
+    <div id="d1"></div>
+    <div id="d2"></div>
+    <div id="d3"></div>
+    <div id="d4"></div>
+    <div id="d5"></div>
+    <div id="d6"></div>
+    <div id="d7"></div>
+    <div id="d8"></div>
+    <div id="d9"></div>
+    <div id="d10"></div>
+    <div id="d11"></div>
+    <hr>
+    <div id="canvas">
+        <div id="item1"></div>
+        <div id="item2"></div>
+        <div id="item3"></div>
+    </div>
+</body>
+</html>

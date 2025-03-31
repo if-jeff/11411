@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>0331筆記 </title>
+    <meta charset="UTF-8">
+    <script>/*JS多行註解*/
+            //單行註解
+    function/*定義涵式 */ hi(name,elm){
+        
+        
+        name=prompt("who?","if"/*預設回答*/);//可輸入
+        while(name==null || name==" "){
+            name=prompt("who~you~are");
+        }
+        alert("hi"+name);//跳出提醒
+        if(confirm("sure?")){
+            alert("got it")
+        }else{
+            alert("><")
+        }
+        elm=document.getElementById("msg");
+        elm.innerHTML="hi"+name;
+
+    }
+    function add(a,b){
+        return a+b;
+    }
+    function calc(){
+        elm1=document.getElementById("n1");
+        elm1=document.getElementById("n1");
+        elm1=document.getElementById("ans");
+        n1=parseInt(elm1.value);
+        n1=parseInt(elm2.value);
+        elmans.value=add(n1,n2);
+    }
+
+    </script>
+</head>
+<body>
+    <button onclick="hi('if',this);">hi</button>
+    <div id="msg"></div>
+    <input type="text"><!--文字-->
+    <input type="password"><!--點點-->
+    <input type="number"><!--純數字 -->
+    <input type="date">
+    <input type="datetime">
+    <input type="datetime-local">
+    <input type="color">
+    <hr>
+    <input type="number" id="n1">+<input type="number" id="n2">
+    <buttom onclick="calc();">等於</buttom>
+    <input type="text" id="ans">
+</body>
+</html>

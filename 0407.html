@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>0407</title>
+    <meta charset="UTF-8">
+    <style>
+        #mouseCanvas{
+            width:600px;
+            height:600px;
+            border:1px solid black;
+        }
+    </style>
+    <script>
+        function btclick(bt){
+            alert(bt.innerHTML+"clicked")
+        }
+        //--------------------------------------
+        function msMove(){
+            msPos=document.getElementById("mousePos");
+            msPos.innerHTML=`(${event.offsetX},${event.offsetY})`
+        }
+        //-------------------
+        function kbDown(){
+            kbOut=document.getElementById("kbOut");
+            kbOut.innerHTML=event.key;
+        }
+    </script>
+</head>
+<body>
+    <botton onclick="btclick(this)">buttom1</botton>
+    <botton onclick="btclick(this)">buttom2</botton>
+    <hr>
+    <div id="mousePos">(x,y)</div>
+    <div id="mouseCanvas" onmousemove="msMove();"></div>
+    <hr>
+    <input type="text" id="kbin" placeholder="kbin" onkeydown="kbDown();">
+    <div id="kbOut"></div>
+</body>
+</html>

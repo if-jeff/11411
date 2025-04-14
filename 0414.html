@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <title>0414</title>
+        <style>
+            #tb {
+                width: 600px;
+                height: 20px;
+                background-color: green;
+            }
+        </style>
+        <script>
+            function func2(){
+                alert("time's up")
+
+            }
+            function func1(){
+                setTimeout/*計時*/(func2,1000)/*毫秒*/
+                setInterval/*間隔一段時間重複*/(func2,1000)/*毫秒*/
+                clearInterval/*停止計時*/ ;
+                
+            }
+            /////////////////////////////////////////////
+            t1=0
+            function tstart(){
+                if(t1>0) return;
+                time=0;
+                document.getElementById("timmer").innerHTML="00:00";
+                t1=setInterval(function(){
+                    time++;
+                    mm=Math.floor(time/60);
+                    ss=time%60;
+                    mm=(mm>9)?mm:"0"+mm;
+                    ss=(ss>9)?ss:"0"+ss;
+                    document.getElementById("timmer").innerHTML=`${mm}:${ss}`;
+                },1000);
+            }
+            function tstop(){
+                (t1)?clearInterval(t1):alreat("not yet");
+                t1=0;
+            }
+            //////////////////////////////////////////////////////
+            function lottery(){
+                setTimeout(clearInterval,3000,
+                setInterval(function(){
+                randnum=Math.floor(Math.random()*100);
+                document.getElementById("lottery").innerHTML=(randnum>9)?randnum:"0"+randnum;
+            },50)
+        );
+            }
+        /////////////////////////////////////////////////////
+        function tbstart(timeout){
+            tbwidth=600;
+            tbCounter=timeout*10;
+            tbUnit=tbwidth/tbCounter;
+            setTimeout(clearInterval,timeout*1000,
+            setInterval(function(){
+                tb=document.getElementById("tb");
+                tbCounter--;
+                if(tbCounter>150){
+                    tb.style.backgroundColor="green";
+                } else if(tbCounter>100){
+                    tb.style.backgroundColor="orange";
+                }else{
+                    tb.style.backgroundColor="red";
+                }
+                tb.style.width=(tbCounter*tbUnit)+"px";
+            },100)
+        );
+
+        }
+        </script>
+    </head>
+    <body>
+        <div id="timmer">00:00</div>
+        <button onclick="tstart();">start</button>
+        <button onclick="tstop();">stop</button>
+        <hr>
+        <div id="lottery">00</div>
+        <button onclick="lottery()">開獎</button>
+        <hr>
+        <div id="tb"></div>
+        <button onclick="tbstart(30);">start</button>
+    </body>
+</html>

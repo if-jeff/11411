@@ -3,27 +3,55 @@
     <title>0428筆記</title>
     <meta charset="UTF-8">
     <style>
+        #status{
+            display:none;
+            background: hsl;
+        }
         .word{
             display: inline-block;
             padding:5px 10px;
             border:5px solid gray;
             text-align: center;
             font-size: 32pt;
-            position: relative;
+            position: absolute;
 
 
         }
     </style>
     <script>
+        input="";
+        gameTime=0;
+        wordCount=0;
         function kbDown(){
             event.preventDefault();//按鍵消除原本功能
+             wards=Array.from(document.getElementsByClassName("word"));
+               word.forEach(function(w){
+                w.innerHTML=w.innerText;
+               });
             if(event.key=="Enter"){
-                input="";
-            } else if(event.key.length==1){
+                words.filter(function(w){
+                    return w.innerHTML==input;
+                }).forEach(function(w){
+                    clearInterval(w.move);
+                    w.remove();
+                    document.getElementById("wordCount").innerHTML=(++wordCount);
+                });
+            input="";
+            }else if(event.key=="Backspace"){
+                input=input.substr(0,input.length-1);
+            } else if(event.key.length==1  ){
+                var code=event.key.CharCode(0);
+                if((code>=65 &&code<=90)||(code>=97 &&code<=122)){
                 input+=event.key;
-               
+                }
             }
-        }
+               words.filter(function(w){
+                return w.innerText.startsWith(input);
+               }).forEach(function(w){
+                w.innerHTML=`<mark>${input}</mark>`+w.innerText.substr(input.length);
+               });
+            }
+        
         function rand(min,max){
             return Math.floor(Math.random()*(max-min+1))+min;
         }
@@ -45,11 +73,14 @@
             }
         function gameStart(){
             document.getElementById("btnStart").style.dispiay="none";
+            input="";
+            gametime=0;
+        wordCount=0;
             t1=setInterval(function(){
                 var a=document.createElement("div");
                 a.className="word";
                 a.innerHTML=genWord();
-                a.pos={x:rand(10,document.body.offsetWidth-100),y:0};
+                a.pos={x:rand(10,document.body.offsetWidth-250),y:70};
                 a.style.left=a.pos.x="px";
                 a.move=setInterval(function(o){
                     o.pos.y+=5;
@@ -64,11 +95,15 @@
 
             document.body.appendChild(a);
             },2000);
+        setInterval(function(){
+            document.getElementById("gameTime").innerHTML=(++gameTime);
+        },1000);
         }
     </script>
 </head>
 <body onkeydown="kbDown();">
+    <div id="status">經過時間:<span id="gameTime">0</span>秒　　正確字數：<span id="wordCount">0</span>字</div>
     <buttton id="btnStart" onclick="gameStart();">遊戲開始</buttton>
-    <div class="word">A</div>
+    
 </body>
 </html>

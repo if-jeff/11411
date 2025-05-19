@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title>0519</title>
+    <meta charset="UTF-8">
+    <style>
+        #universal {
+            width:800px;
+            height: 800px;
+            position: relative;
+            background-image: url("pic/bg_stars.jpg");
+            animation: bgmove 3s linear infinite;
+        }
+        @keyframes bgmove {
+            0%{background-position-y: 0px;}
+            100%{background-position-y: 216px;}
+        }
+        #ship {
+            width:40px;
+            position: absolute;
+        }
+        .bullet {
+            width: 4px;
+            height: 6px;
+            background:red ;
+        }
+    </style>
+    <script>
+        function gameInit(){
+            ship=document.getElementById("ship");
+            ship.pos={x:380,y:740};
+            ship.moving=0;
+            ship.move=setInterval(function(){
+                if(hsip.moving==0) return;
+                if(ship.pos.x==0&&shop.moving<0) return;
+                if(ship.pos.x==760&&shop.moving>0) return;
+                ship.pos.x += ship.moving;
+                ship.style.left=ship.pos.x="px";
+            },10);
+            
+            
+        }
+        function shoot(){
+            var b=document.createElement("div");
+            b.className="bullet";
+            b.pos={x:ship.pos.x+18,y:ship.pos.y-6};
+            b.style.left=b.pos.x="px";
+            b.style.top=b.pos.y="px";
+            b.move=setInterval(function(){
+                b.pos.y--;
+                b.style.top=b.pos.y+"px";
+                if(b.pos.y<0) die(b);
+            },10);
+            document.getElementById("universal").appendChild(b);
+        }
+        function die(obj){
+            clearInterval(obj.move);
+            obj.remove();
+        }
+        function mykeydown(){
+            event.preventDefault();
+            if(event.key=="ArrowLeft"){
+                ship.moving=-1
+            } else if(event.key=="ArrowRight"){
+                ship.moving=1
+        }(event.key==" "){
+            shoot();
+        }
+    }
+        function mykeyup(){
+            ship.moving=0
+        }
+
+    </script>
+</head>
+<body onload="gameInit();"onkeydown="mykeydown()" onkeyup="mykeyup()">
+    <div id="statue"></div>
+    <div id="universal">
+        <img id="ship" src="pic/ship.png">
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,60 @@
+<html>
+<head>
+    <title>0512</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-image: url("pic/grass.jpg");
+            background-size: 200px 140px;
+            position: relative;
+        }
+        #role{
+            
+            width:48px;
+            height:75px ;
+            background: url("pic/sprite1.png");
+            background-position-y: 0px ;
+            animation: walking 1s steps(3) infinite;
+            position: absolute;
+
+        }
+        @keyframes walking {
+            0%{background-position-x:-144px ;}
+            100%{background-position-x:-288px ;}
+        }
+    </style>
+    <script>
+        function ganeInit(){
+            role=document.getElementById("role");
+            role.pos={x:24,y:72};
+            role.faceTo=-1;/*stop*/
+            role.move=setInterval(function(){
+                if(role.faceTo<0) return;
+                var dx=[0,-1,1,0];
+                var dy=[1,0,0,-1];
+                role.pos.x+=dx[role.faceTo];
+                role.pos.y+=dy[role.faceTo];
+                role.style.left=role.pos.x+"px";
+                role.style.top=role.pos.y+"px";
+            },50);
+        }
+        function mykeydown() {
+            event.preventDefault();
+            var key=event.key;
+            var dir=["ArrowDown","ArrowLeft","ArrowRight","ArrowUp"];
+            if(dir.includes(key)){
+                role.faceTo=dir.indexOf(key);
+                role.style.backgroundPositionY=`-${role.faceTo*72}px`;   
+            } 
+        }
+        function mykeyup(){
+            role.faceTo=-1;
+            role.style.backgroundPositionY="0px"
+        }
+        
+    </script>
+</head>
+<body onload="ganeInit();" onkeydown="mykeydown();" onkeyup="mykeyup()">
+    <div id="role"></div>
+</body>
+</html>

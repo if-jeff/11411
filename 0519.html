@@ -22,12 +22,20 @@
             width: 4px;
             height: 6px;
             background:red ;
+            position: absolute;
+        }
+        .ufo {
+            height:40;
+            top:-40;
+            position: absolute;
         }
     </style>
     <script>
         function gameInit(){
             ship=document.getElementById("ship");
             ship.pos={x:380,y:740};
+            ship.style.left=ship.pos.x="px";
+            ship.style.top=ship.pos.y="px";
             ship.moving=0;
             ship.move=setInterval(function(){
                 if(hsip.moving==0) return;
@@ -36,26 +44,10 @@
                 ship.pos.x += ship.moving;
                 ship.style.left=ship.pos.x="px";
             },10);
+            setInterval(newUFO,1000);
             
-            
         }
-        function shoot(){
-            var b=document.createElement("div");
-            b.className="bullet";
-            b.pos={x:ship.pos.x+18,y:ship.pos.y-6};
-            b.style.left=b.pos.x="px";
-            b.style.top=b.pos.y="px";
-            b.move=setInterval(function(){
-                b.pos.y--;
-                b.style.top=b.pos.y+"px";
-                if(b.pos.y<0) die(b);
-            },10);
-            document.getElementById("universal").appendChild(b);
-        }
-        function die(obj){
-            clearInterval(obj.move);
-            obj.remove();
-        }
+       
         function mykeydown(){
             event.preventDefault();
             if(event.key=="ArrowLeft"){
@@ -69,13 +61,51 @@
         function mykeyup(){
             ship.moving=0
         }
-
+    function shoot(){
+            var b=document.createElement("div");
+            b.className="bullet";
+            b.pos={x:ship.pos.x+18,y:ship.pos.y-6};
+            b.style.left=b.pos.x="px";
+            b.style.top=b.pos.y="px";
+            b.move=setInterval(function(){
+                b.pos.y--;
+                b.style.top=b.pos.y+"px";
+                if(b.pos.y<0) die(b);
+                var ufos=Array.from(document.getElementsByClassName("ufo")).filter(function(u){
+                    return (u.pos.x<=b.pos.x&&u.pos.x+60>=b.pos.x+4)
+                });
+            },10);
+            document.getElementById("universal").appendChild(b);
+        }
+        function die(obj){
+            clearInterval(obj.move);
+            obj.remove();
+        }
+        function rand(min,max){
+            return Math.floor(Math.random()*(max-min+1))+min;
+        }
+        function newUFO(){
+            var u=document.createElement("img");
+            u.src="pic/ufo.png";
+            u.classname="ufo";
+            u.pos={x:rand(0,740),y:-40};
+            u.style.left=u.pos.x="px";
+            u.style.top=u.pos.y="px";
+            u.move=setInterval(function(){
+               u.pos.x+=rand(-1,1)
+                u.pos.y++;
+               u.style.top=u.pos.y+"px";
+               if(u.pos>760)die(u);
+            },30);
+            document.getElementById("universal").appendChild(u);
+        }
     </script>
 </head>
 <body onload="gameInit();"onkeydown="mykeydown()" onkeyup="mykeyup()">
     <div id="statue"></div>
     <div id="universal">
         <img id="ship" src="pic/ship.png">
+        
     </div>
     
 </body>

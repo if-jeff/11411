@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>成果:打地鼠</title>
+    <meta charset="UTF-8">
+<style>
+    #scoreboard {
+        font-size: 24px;
+        margin: 10px;
+    }
+    #start {
+        font-size: 18px;
+        padding: 10px;
+    }
+    #game {
+        display: grid;
+        grid:repeat(3,90px)/repeat(3,90px);
+    }
+    .hole {
+        width: 100px;
+        height: 100px;
+    }
+    .hole img {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<script>
+function gameInit {
+    
+}
+</script>
+</head>
+<body onload="gameInit();">
+    <button onclick="start()">開始遊戲</button>
+    <div id="scoreboard">分數:<span id="score">0</span></div>
+   <div id="game">
+    <div class="hole"><img src="pic/01.png"> </div>
+    <div class="hole"><img src="pic/01.png"> </div>
+    <div class="hole"><img src="pic/01.png"> </div>
+    <div class="hole"><img src="pic/01.png"> </div>
+    <div class="hole"><img src="pic/01.png"> </div>
+    <div class="hole"><img src="pic/01.png"> </div>
+    <div class="hole"><img src="pic/01.png"> </div>
+    <div class="hole"><img src="pic/01.png"> </div>
+    <div class="hole"><img src="pic/01.png"> </div>
+   </div>
+
+</body>
+</html>

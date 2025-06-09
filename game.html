@@ -1,49 +1,103 @@
 <html>
 <head>
-    <title>成果:打地鼠</title>
     <meta charset="UTF-8">
-<style>
-    #scoreboard {
-        font-size: 24px;
-        margin: 10px;
-    }
-    #start {
-        font-size: 18px;
-        padding: 10px;
-    }
-    #game {
-        display: grid;
-        grid:repeat(3,90px)/repeat(3,90px);
-    }
-    .hole {
-        width: 100px;
-        height: 100px;
-    }
-    .hole img {
-        width: 100%;
-        height: 100%;
-    }
-</style>
-<script>
-function gameInit {
-    
+    <title>打地鼠</title>
+    <style>
+        #board {
+            display: grid;
+            grid: repeat(3, 90px) / repeat(4, 90px);
+            gap: 10px;
+        }
+        #hammer {
+            position: absolute;
+            width: 100px;
+            pointer-events: none;
+            z-index: 1000;
 }
-</script>
-</head>
-<body onload="gameInit();">
-    <button onclick="start()">開始遊戲</button>
-    <div id="scoreboard">分數:<span id="score">0</span></div>
-   <div id="game">
-    <div class="hole"><img src="pic/01.png"> </div>
-    <div class="hole"><img src="pic/01.png"> </div>
-    <div class="hole"><img src="pic/01.png"> </div>
-    <div class="hole"><img src="pic/01.png"> </div>
-    <div class="hole"><img src="pic/01.png"> </div>
-    <div class="hole"><img src="pic/01.png"> </div>
-    <div class="hole"><img src="pic/01.png"> </div>
-    <div class="hole"><img src="pic/01.png"> </div>
-    <div class="hole"><img src="pic/01.png"> </div>
-   </div>
 
+        .hole {
+            width: 90px;
+            height: 90px;
+        }
+    </style>
+    <script>
+        var holes = [];
+        var moleIndex = -1;
+        var score = 0;
+        var gameTimer = null;
+        var countdownTimer = null;
+        var timeLeft = 30; 
+
+        function gameInit() {
+            var board = document.getElementById("board");
+            board.innerHTML = "";
+            for ( i = 0; i < 12; i++) {
+                var img = document.createElement("img");
+                img.className = "hole";
+                img.src = "pic/01.png";
+                img.addEventListener("click", hitMole);
+                board.appendChild(img);
+            }
+            holes = Array.from(document.getElementsByClassName("hole"));
+            document.getElementById("score").textContent = "0";
+            document.getElementById("time").textContent = timeLeft;
+        }
+
+        function startGame() {
+            score = 0;
+            timeLeft = 30;
+            document.getElementById("score").textContent = score;
+            document.getElementById("time").textContent = timeLeft;
+
+            if (gameTimer) clearInterval(gameTimer);
+            if (countdownTimer) clearInterval(countdownTimer);
+
+            gameTimer = setInterval(showMole, 800);
+            countdownTimer = setInterval(updateTime, 1000);
+        }
+
+        function showMole() {
+            if (moleIndex != -1) {
+                holes[moleIndex].src = "pic/01.png";
+            }
+            moleIndex = Math.floor(Math.random() * holes.length);
+            holes[moleIndex].src = "pic/02.png"; 
+        }
+
+        function hitMole(e) {
+            var idx = holes.indexOf(e.target);
+            if (idx == moleIndex) {
+                score++;
+                document.getElementById("score").textContent = score;
+                holes[moleIndex].src = "pic/01.png";
+                moleIndex = -1;
+            }
+        }
+
+        function updateTime() {
+            timeLeft--;
+            document.getElementById("time").textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(gameTimer);
+                clearInterval(countdownTimer);
+                alert("時間到！你的分數是：" + score);
+            }
+        }
+        function moveHammer(e) {
+            var hammer = document.getElementById("hammer");
+            hammer.style.left = e.pageX + "px";
+            hammer.style.top = e.pageY + "px";
+}
+    </script>
+</head>
+<body onload="gameInit();"onmousemove="moveHammer(event)"onmousedown="document.getElementById('hammer').src='pic/垂2.png';"
+onmouseup="document.getElementById('hammer').src='pic/垂1.png';">
+    <div>
+        <button onclick="startGame();">開始遊戲</button>
+        分數：<span id="score">0</span>　
+        時間：<span id="time">30</span> 秒
+    </div>
+    <div id="board"></div>
+    <img id="hammer" src="pic/垂1.png">
 </body>
 </html>
